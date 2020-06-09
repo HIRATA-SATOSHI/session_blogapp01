@@ -1,8 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
-
-  # GET /blogs
-  # GET /blogs.json
+      
   def index
     @blogs = Blog.all
   end
@@ -25,7 +23,7 @@ class BlogsController < ApplicationController
   # POST /blogs.json
   def create
     @blog = current_user.blogs.build(blog_params)
-
+    @user = @blog.user.name
     respond_to do |format|
       if @blog.save
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
@@ -63,6 +61,7 @@ class BlogsController < ApplicationController
 
   def confirm
     @blog = current_user.blogs.build(blog_params)
+    @user = @blog.user.name
     render :new if @blog.invalid?
   end
 
