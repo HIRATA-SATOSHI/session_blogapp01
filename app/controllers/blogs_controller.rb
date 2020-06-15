@@ -23,6 +23,7 @@ class BlogsController < ApplicationController
   # POST /blogs.json
   def create
     @blog = current_user.blogs.build(blog_params)
+    binding.irb
     respond_to do |format|
       if @blog.save
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
@@ -71,6 +72,6 @@ class BlogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blog_params
-      params.require(:blog).permit(:title, :content)
+      params.require(:blog).permit(:title, :content, :user_id)
     end
 end
