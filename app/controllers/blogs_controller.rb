@@ -8,6 +8,7 @@ class BlogsController < ApplicationController
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+    @favorite = current_user.favorites.find_by(blog_id: @blog.id)
   end
 
   # GET /blogs/new
@@ -23,7 +24,6 @@ class BlogsController < ApplicationController
   # POST /blogs.json
   def create
     @blog = current_user.blogs.build(blog_params)
-    binding.irb
     respond_to do |format|
       if @blog.save
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
